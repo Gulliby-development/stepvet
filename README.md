@@ -92,7 +92,7 @@ broken.txt:2:3: SV104 scenario has no Then step
 1 problem
 ```
 
-The codes `SV001` to `SV008` are syntax problems (a tag in the wrong place, an unterminated table row, a row with the wrong number of cells and so on); `SV101` to `SV109` are lint problems (a scenario with no steps, a duplicate scenario name, a first step starting with `And`, no `Then` step, a step kind out of order, an outline without `Examples:`, a placeholder with no column, an unused column, an `Examples:` block without rows).
+The codes `SV001` to `SV008` are syntax problems (a tag in the wrong place, an unterminated table row, a row with the wrong number of cells and so on); `SV101` to `SV110` are lint problems (a scenario with no steps, a duplicate scenario name, a first step starting with `And`, no `Then` step, a step kind out of order, an outline without `Examples:`, a placeholder with no column, an unused column, an `Examples:` block without rows, a column name repeated in an `Examples:` header).
 
 ### select
 

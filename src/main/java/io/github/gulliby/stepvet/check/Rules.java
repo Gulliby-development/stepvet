@@ -142,10 +142,17 @@ public final class Rules {
                         "SV109", "Examples: has no rows"));
             }
             if (examples.header() != null) {
+                Map<String, Integer> firstColumns = new HashMap<>();
                 for (Doc.Cell cell : examples.header()) {
                     if (!usedNames.contains(cell.text())) {
                         problems.add(new Problem(examples.headerLine(), cell.col(), "SV108",
                                 "column " + Text.show(cell.text()) + " is not used by any step"));
+                    }
+                    Integer firstCol = firstColumns.putIfAbsent(cell.text(), cell.col());
+                    if (firstCol != null) {
+                        problems.add(new Problem(examples.headerLine(), cell.col(), "SV110",
+                                "duplicate column " + Text.show(cell.text())
+                                        + " (first at column " + firstCol + ")"));
                     }
                 }
             }

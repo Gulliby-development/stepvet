@@ -253,7 +253,8 @@ class RulesTest {
                                 new Doc.Examples(5, 5, "", List.of(), 6, List.of(), List.of()),
                                 new Doc.Examples(8, 5, "", List.of(), 9, List.of(), List.of())))))));
 
-        assertEquals(List.of(), Rules.analyze(new Doc.Spec("F", 1, List.of(), null, List.of(
+        assertEquals(List.of(new Problem(6, 11, "SV110", "duplicate column \"x\" (first at column 7)")),
+                Rules.analyze(new Doc.Spec("F", 1, List.of(), null, List.of(
                 new Doc.Scenario(true, "", 2, 3, List.of(), List.of(
                         new Doc.Step("Given", "<x>", 3, 5, 9),
                         new Doc.Step("Then", "ok", 4, 5, 9)), List.of(
@@ -281,7 +282,8 @@ class RulesTest {
     void outlineUsageIgnoresTitleAndBackgroundAndReportsRepeatedUnusedCells() {
         assertEquals(List.of(
                 new Problem(6, 7, "SV108", "column \"x\" is not used by any step"),
-                new Problem(6, 11, "SV108", "column \"x\" is not used by any step")),
+                new Problem(6, 11, "SV108", "column \"x\" is not used by any step"),
+                new Problem(6, 11, "SV110", "duplicate column \"x\" (first at column 7)")),
                 Rules.analyze(new Doc.Spec("F <x>", 1, List.of(),
                         List.of(new Doc.Step("Given", "background <x>", 2, 3, 9)),
                         List.of(new Doc.Scenario(true, "Outline <x>", 3, 1, List.of(), List.of(
