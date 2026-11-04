@@ -23,7 +23,7 @@ public final class Cli {
 
             if (argv.size() == 1 && argv.get(0).equals("--help")) {
                 io.out("usage: stepvet check FILE...\n"
-                        + "       stepvet select EXPR FILE...\n"
+                        + "       stepvet select [--count] EXPR FILE...\n"
                         + "       stepvet steps [--all] DEFS FILE...\n");
                 return 0;
             }
@@ -35,7 +35,11 @@ public final class Cli {
             }
 
             List<String> commandArgv = argv.subList(1, argv.size());
-            Set<String> allowedFlags = command.equals("steps") ? Set.of("--all") : Set.of();
+            Set<String> allowedFlags = switch (command) {
+                case "steps" -> Set.of("--all");
+                case "select" -> Set.of("--count");
+                default -> Set.of();
+            };
             Options.Parsed parsed = Options.parse(commandArgv, allowedFlags);
 
             Report.Output output = switch (command) {

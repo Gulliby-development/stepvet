@@ -26,6 +26,7 @@ public final class SelectCommand {
         }
 
         TagExpr expression = TagExpr.parse(args.get(0));
+        boolean countOnly = flags.contains("--count");
         StringBuilder selectedLines = new StringBuilder();
         int total = 0;
         int selected = 0;
@@ -41,9 +42,11 @@ public final class SelectCommand {
             for (Units.Unit unit : Units.of(parsed.spec())) {
                 total++;
                 if (expression.matches(Set.copyOf(unit.tags()))) {
-                    String line = source.display() + ":" + unit.line() + ": "
-                            + Text.plain(unit.title());
-                    selectedLines.append(Text.rtrim(line)).append('\n');
+                    if (!countOnly) {
+                        String line = source.display() + ":" + unit.line() + ": "
+                                + Text.plain(unit.title());
+                        selectedLines.append(Text.rtrim(line)).append('\n');
+                    }
                     selected++;
                 }
             }

@@ -35,7 +35,7 @@ class CliTest {
 
         assertEquals(0, Cli.run(List.of("--help"), io));
         assertEquals("usage: stepvet check FILE...\n"
-                + "       stepvet select EXPR FILE...\n"
+                + "       stepvet select [--count] EXPR FILE...\n"
                 + "       stepvet steps [--all] DEFS FILE...\n", io.out.toString());
         assertEquals("", io.err.toString());
     }
