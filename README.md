@@ -32,7 +32,7 @@ The available commands are:
 
 ```text
 usage: stepvet check FILE...
-       stepvet select EXPR FILE...
+       stepvet select [--count] EXPR FILE...
        stepvet steps [--all] DEFS FILE...
 ```
 
@@ -108,6 +108,12 @@ cart.txt:26: Add many (row 2)
 selected 2 of 3
 ```
 
+Add `--count` after `select` to print only the last line, `selected N of M`, without the list of scenarios; the exit code does not change (0 when at least one scenario is selected, else 1). For the same file `java -cp target/classes io.github.gulliby.stepvet.Main select --count "@smoke and not @eu" cart.txt` prints:
+
+```text
+selected 2 of 3
+```
+
 Tag expressions combine tags with `and`, `or`, `not` and parentheses; `or` binds weaker than `and`, and `not` binds tightest. `@eu or @smoke and not @slow` and `not (@slow or @eu)` are valid expressions. A scenario has the tags of the `Feature:`, of the scenario and, for an outline row, of its `Examples:` block.
 
 ### steps
@@ -152,6 +158,7 @@ cart.txt:17: ok: the cart holds 10 items -> defs.txt:4 ("10")
 |---|---|
 | `--help` | Print the usage lines (only as the single argument). |
 | `--all` | `steps` only: also list the steps with exactly one match. |
+| `--count` | `select` only: print only the line `selected N of M`. |
 | `-` | As a file name: read standard input. |
 
 ## Step patterns
